@@ -3,6 +3,8 @@ package controller
 import (
 	"iteung/config"
 
+	"github.com/aiteung/musik"
+	"github.com/aiteung/presensi"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
 	"github.com/whatsauth/whatsauth"
@@ -39,4 +41,14 @@ func PostWhatsAuthRequest(c *fiber.Ctx) error {
 		return c.JSON(ws)
 	}
 
+}
+
+func Homepage(c *fiber.Ctx) error {
+	ipaddr := musik.GetIPaddress()
+	return c.JSON(ipaddr)
+}
+
+func GetPresensiBulanIni(c *fiber.Ctx) error {
+	ps := presensi.GetPresensiCurrentMonth(config.Ulbimongoconn)
+	return c.JSON(ps)
 }
